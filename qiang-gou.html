@@ -1,0 +1,105 @@
+<!--
+    readme 
+    复制本页面内容到商品详情页的console里并执行, 然后再页面顶部会出现操作按钮.
+-->
+$(document.body).html(`
+
+<input id="activeTime" type="text" value="2020-01-01 01:00:00" style="width:250px;"/>
+    <button
+        onclick="
+            start()
+        "
+    >开始</button>
+
+    <button
+    onclick="
+        clearInterval(nIntervId)
+    "
+>停止</button>
+    <br/>
+   <iframe id="iframe" src="" style="width:100%;height:1000px"></iframe>
+
+
+<script>
+  $('#iframe').attr('src',location.href)  
+
+  function start(){
+      if(nIntervId)
+        clearInterval(nIntervId)
+            try {
+                goDate = new Date($('#activeTime').val());
+                console.log("设定时间成功:" + goDate);
+
+                //go(); 0.25秒执行一次
+                nIntervId = setInterval("go()", 250);
+            }
+            catch (e) {
+                alert("时间格式不正确,请使用yyyy-MM-dd hh:mm:ss格式,精确到秒, 请重试");
+            }
+  }
+
+    var nIntervId;
+    var count = 1;
+    var goDate;
+    function go() {
+        console.log("正在帮你抢购＊＊＊＊＊＊＊＊＊＊＊＊＊ 刷新" + count + "次");
+        //console.log("host:" + window.location.hostname);
+        count++;
+        // iPhone X go set time
+        if (Date.now() >= goDate) {
+            if ($($('#iframe')[0].contentWindow.document).find("#choose-btn-ko").length == 1) {
+                console.log("(++++++++++++iphoneX 抢购");
+                var sku = window.location.pathname.replace(/[^0-9]/ig, "");
+                var ref = "//cart.jd.com/gate.action?pid=" + sku + "&pcount=1&ptype=1";
+                console.log("https:" + ref);
+                //5089237
+                $($('#iframe')[0].contentWindow.document).find("#choose-btn-ko").attr("href", ref);//                 
+                $($('#iframe')[0].contentWindow.document).find("#choose-btn-ko")[0].click();
+                return;
+            }
+
+            if ($($('#iframe')[0].contentWindow.document).find("#btn-reservation").length == 1) {
+                console.log("(++++++++++++开始预约");
+
+                $($('#iframe')[0].contentWindow.document).find("#btn-reservation")[0].click();
+                return;
+            }
+
+
+            if ($($('#iframe')[0].contentWindow.document).find("#InitCartUrl").length == 1) {
+                console.log("(++++++++++++加入购物车");
+
+                $($('#iframe')[0].contentWindow.document).find("#InitCartUrl")[0].click();
+                return;
+            }
+
+            if ($($('#iframe')[0].contentWindow.document).find("#GotoShoppingCart").length == 1) {
+                console.log("(++++++++++++去购物车结算");
+                $($('#iframe')[0].contentWindow.document).find("#GotoShoppingCart")[0].click();
+                return;
+            }
+
+            if ($($('#iframe')[0].contentWindow.document).find("#cart-floatbar .submit-btn").length == 1) {
+                console.log("(++++++++++++去结算");
+
+                //只提交我抢购的商品
+                //var sku = window.location.pathname.replace(/[^0-9]/ig, "");                 
+
+                //$("#toggle-checkboxes_up").trigger("click");
+                //全不选择
+                //$("toggle-checkboxes_up")[0].click();
+
+                //$('input:checkbox').attr("checked",false);
+                //$("input:checkbox[value^='"+sku+"']").trigger("click");
+
+                //$("input:checkbox[value^='"+sku+"']").attr("checked",true);
+
+                $($('#iframe')[0].contentWindow.document).find("#cart-floatbar .submit-btn")[0].click();
+            }
+            if ($($('#iframe')[0].contentWindow.document).find("#order-submit").length == 1) {
+                console.log("(++++++++++++提交订单");
+                $($('#iframe')[0].contentWindow.document).find("#order-submit")[0].click();
+            }
+        }
+    }
+</script>`)
