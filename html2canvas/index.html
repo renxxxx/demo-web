@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script src='http://html2canvas.hertzen.com/dist/html2canvas.min.js'></script>
+    </head>
+    <body>
+    </body>
+</html>
+
+<script>
+
+    $.get('./20201015151805328113039104401453.html',function(data){
+        var div = $('<div style="position:absolute;top:-10000px;">'+data+'</div>');
+        $(document.body).append(div);
+        setTimeout(function(){
+            html2canvas(div[0],{width:div.width(),height:div.height()}).then(function(canvas) {
+                document.body.appendChild(canvas);
+            });
+        },1000)
+        
+    })
+
+   
+</script>

@@ -13,9 +13,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-*.zip
-*.rar
-*.war
 *.class
 
 # Mobile Tools for Java (J2ME)

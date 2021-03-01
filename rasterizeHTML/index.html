@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script src='https://cdn.bootcss.com/rasterizehtml/1.3.0/rasterizeHTML.allinone.js'></script>
+    </head>
+    <body>
+        <canvas id='canvas'></canvas>
+    </body>
+</html>
+
+<script>
+
+    var canvas = document.getElementById('canvas');
+   
+    $.get('./20200925145416032127877485865742.html',function(data){
+        rasterizeHTML.drawHTML(`<img style="max-width: 100%;" src="./20200925145416032127877485865742_files/20200528141058789469165483919568.jpg" alt="" width="100%">`, canvas);
+    })
+</script>
