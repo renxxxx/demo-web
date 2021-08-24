@@ -1,0 +1,80 @@
+clearInterval(window.nIntervId)
+clearInterval(window.nIntervId)
+clearInterval(window.interval1)
+clearInterval(window.interval2)
+clearInterval(window.interval3)
+document.body.innerHTML=''
+document.write(`
+    <button style="height:30px;"
+        onclick="
+            start()
+        "
+    >开始</button>
+
+    <button style="height:30px;"
+    onclick="
+        clearInterval(window.nIntervId)
+        clearInterval(window.nIntervId)
+        clearInterval(window.interval1)
+        clearInterval(window.interval2)
+        clearInterval(window.interval3)
+    "
+>停止</button>
+    <br/>
+    <iframe id="iframe" src=""  style="width:100%;height:700px"></iframe>
+<script>
+    var interval1;
+    var interval2;
+    var interval3;
+    var nIntervId;
+    var count = 1;
+    var goDate;
+    var iframe = document.getElementById('iframe')
+    iframe.src=location.href
+    function start(){
+        clearInterval(nIntervId)
+        nIntervId = setInterval(go, 250);
+    }
+    function go() {
+        console.log("正在帮你抢购＊＊＊＊＊＊＊＊＊＊＊＊＊ 刷新" + count + "次");
+        count++;
+        //加入购物车
+        var J_LinkBasket = iframe.contentWindow.document.getElementById('J_LinkBasket')
+        //去结算
+        var mcCartBtn1 = iframe.contentWindow.document.getElementsByClassName('mcCartBtn')[0]
+        var mcCartBtn2 = iframe.contentWindow.document.getElementsByClassName('tm-mcCartBtn')[0]
+        //结算
+        var J_Go = iframe.contentWindow.document.getElementById('J_Go')
+        //提交订单
+        var go_btn = iframe.contentWindow.document.getElementsByClassName('go-btn')[0]
+
+        clearInterval(interval2)
+        interval2=setInterval(function(){
+            debugger
+            var J_Cart = iframe.contentWindow.document.getElementById('J_Cart')
+            var empty = iframe.contentWindow.document.getElementById('empty')
+            var J_SelectAll1 = iframe.contentWindow.document.getElementById('J_SelectAll1')
+            if(J_Cart){
+                if(J_SelectAll1){
+                    //结算
+                    clearInterval(interval2)
+                    J_SelectAll1.click()
+                    J_Go = iframe.contentWindow.document.getElementById('J_Go')
+                    J_Go.click()
+                    clearInterval(interval3)
+                    interval2=setInterval(function(){
+                        go_btn =  iframe.contentWindow.document.getElementsByClassName('go-btn')[0]
+                        if(go_btn){
+                            //提交订单
+                            clearInterval(interval3)
+                            go_btn.click()
+                        }
+                    },50)
+                }
+                if(empty){
+                    iframe.contentWindow.document.location.reload()
+                }
+            }
+        },50)
+    }
+</script>`)

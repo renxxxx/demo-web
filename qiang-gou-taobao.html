@@ -1,0 +1,67 @@
+clearInterval(window.nIntervId)
+clearInterval(window.nIntervId)
+clearInterval(window.interval1)
+clearInterval(window.interval2)
+clearInterval(window.interval3)
+document.body.innerHTML=''
+document.write(`
+<input id="activeTime" type="text" value="2020-01-01 01:00:00" style="width:250px;height:30px;"/>
+    <button style="height:30px;"
+        onclick="
+            start()
+        "
+    >开始</button>
+
+    <button style="height:30px;"
+    onclick="
+        clearInterval(window.nIntervId)
+        clearInterval(window.nIntervId)
+        clearInterval(window.interval1)
+        clearInterval(window.interval2)
+        clearInterval(window.interval3)
+    "
+>停止</button>
+    <br/>
+    <iframe id="iframe" src=""  style="width:100%;height:700px"></iframe>
+    <div id="iframe1Pad">
+        
+    </div>
+<script>
+    var interval1;
+    var interval2;
+    var interval3;
+    var nIntervId;
+    var count = 1;
+    var goDate;
+    var iframe = document.getElementById('iframe')
+    iframe.src=location.href
+    var activeTime = document.getElementById('activeTime')
+    function start(){
+        clearInterval(nIntervId)
+        try {
+            goDate = new Date(activeTime.value);
+        } catch (e) {
+            alert("时间格式不正确,请使用yyyy-MM-dd hh:mm:ss格式,精确到秒, 请重试");
+        }
+        nIntervId = setInterval(go, 250);
+    }
+    function go() {
+        console.log("正在帮你抢购＊＊＊＊＊＊＊＊＊＊＊＊＊ 刷新" + count + "次");
+        count++;
+        //加入购物车
+        var J_LinkBasket = iframe.contentWindow.document.getElementById('J_LinkBasket')
+        //去结算
+        var mcCartBtn1 = iframe.contentWindow.document.getElementsByClassName('mcCartBtn')[0]
+        var mcCartBtn2 = iframe.contentWindow.document.getElementsByClassName('tm-mcCartBtn')[0]
+        //结算
+        var J_Go = iframe.contentWindow.document.getElementById('J_Go')
+        //提交订单
+        var go_btn = iframe.contentWindow.document.getElementsByClassName('go-btn')[0]
+
+        if (Date.now() >= goDate.getTime()) {
+            clearInterval(nIntervId)
+            //加入购物车
+            J_LinkBasket.click()
+        }
+    }
+</script>`)
